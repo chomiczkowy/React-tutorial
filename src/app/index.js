@@ -1,69 +1,30 @@
 var React=require('react');
 var ReactDOM=require('react-dom');
 require('./css/index.css');
+
 import {Router, Route, browserHistory, Link} from 'react-router'
-import TodoItem from './todoItem'
+import TodoComponent from './pages/todoComponent'
+import Layout from './pages/layout'
 
-var AddItem=require('./addItem');
-var About=require('./about');
+var About = require('./pages/about').default;
+var BookSearch = require('./pages/bookSearch').default;
+var MyPage = require('./pages/myPage').default;
+var BookRequest = require('./pages/bookRequest').default;
 
-var App=React.createClass({
-  render:function(){
+export default class App extends React.Component{
+  render() {
     return (
       <Router history={browserHistory}>
-        <Route path={'/'} component={TodoComponent}></Route>
-        <Route path={'/about'} component={About}></Route>
+        <Route path={'/'} component={Layout}>
+          <Route path={'/about'} component={About}></Route>
+          <Route path={'/bookSearch'} component={BookSearch}></Route>
+          <Route path={'/myPage'} component={MyPage}></Route>
+          <Route path={'/bookRequest'} component={BookRequest}></Route>
+        </Route>
       </Router>
     )
   }
-})
-
-var TodoComponent=React.createClass({
-  getInitialState:function(){
-    return {
-      todos: ['wash up', 'eat some cheese', 'take a nap']
-    }
-  },
-  render:function() {
-    var todos = this.state.todos;
-    todos = todos.map(function(item, index) {
-      return(
-        <TodoItem item={item} key={index} onDelete={this.onDelete}/>
-      );
-    }.bind(this));
-
-    return (
-      <div id="todo-list">
-        <Link to={'/about'}>About</Link>
-        <p onClick={this.clicked}>The busiest people have the most leisure...</p>
-        <ul>
-          {todos}
-        </ul>
-        <AddItem onAdd={this.onAdd}/>
-      </div>
-    );
-  },
-
-  //custom functions
-  onDelete: function(item){
-    var updatedTodos=this.state.todos.filter(function(val,index){
-      return val !== item;
-    });
-
-    this.setState({
-      todos:updatedTodos
-    });
-  },
-
-  onAdd:function(item){
-    var updatedTodos=this.state.todos;
-    updatedTodos.push(item);
-
-    this.setState({
-      todos:updatedTodos
-    });
-  }
-})
+}
 
 //umieszczamy komponent w divie
-ReactDOM.render(<App />, document.getElementById('todo-wrapper'));
+ReactDOM.render(<App />, document.getElementById('layout-container'));

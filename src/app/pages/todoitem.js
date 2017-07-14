@@ -1,5 +1,5 @@
 var React=require('react');
-require('./css/todoItem.css');
+require('../css/todoItem.css');
 
 //Create TodoItem component
 export default class TodoItem extends React.Component{

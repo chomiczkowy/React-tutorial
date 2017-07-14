@@ -1,5 +1,5 @@
 var React=require('react');
-require('./css/addItem.css');
+require('../css/addItem.css');
 
 var AddItem=React.createClass({
   render:function(){
