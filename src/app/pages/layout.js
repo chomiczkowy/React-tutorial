@@ -1,6 +1,12 @@
 var React=require('react');
 import MainMenu from '../components/mainMenu'
+import {connect} from "react-redux"
 
+@connect((store)=>{
+  return {
+
+  };
+})
 export default class App extends React.Component{
   render() {
     return (
